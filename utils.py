@@ -3,7 +3,7 @@ import aiofiles
 import time
 from datetime import timedelta
 import psutil
-from config import SAVE_INTERVAL  # <-- اضافه شد
+from config import SAVE_INTERVAL
 
 async def load_ips(file_path):
     ips = []
