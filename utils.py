@@ -1,6 +1,6 @@
 # utils.py
 import aiofiles
-import time
+import asyncio  # <-- اضافه شد
 from datetime import timedelta
 import psutil
 from config import SAVE_INTERVAL
@@ -20,7 +20,7 @@ async def save_line(file_path, line):
 
 async def periodic_stats(stats, lock, cpu_proc, start_time):
     while True:
-        await time.sleep(SAVE_INTERVAL)
+        await asyncio.sleep(SAVE_INTERVAL)  # <-- فیکس شد!
         async with lock:
             elapsed = time.time() - start_time
             speed = stats["scanned"] / elapsed if elapsed > 0 else 0
