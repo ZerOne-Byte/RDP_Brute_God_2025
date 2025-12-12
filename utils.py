@@ -1,6 +1,7 @@
 # utils.py
 import aiofiles
 import asyncio
+import time  # <-- اضافه شد (فیکس نهایی!)
 from datetime import timedelta
 import psutil
 from config import SAVE_INTERVAL
