@@ -4,6 +4,7 @@ import time
 from datetime import timedelta
 import psutil
 from config import SAVE_INTERVAL
+import asyncio  # <-- اضافه شد (فیکس نهایی)
 
 async def load_ips(file_path):
     ips = []
