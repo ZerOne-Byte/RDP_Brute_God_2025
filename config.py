@@ -8,4 +8,4 @@ COMMON_PASSWORDS = [
 DEFAULT_USERS = ["Administrator", "guest"]
 
 TIMEOUT = 10
-SAVE_INTERVAL = 5
+SAVE_INTERVAL = 5  # <-- این خط مهمه – حالا در همه جا در دسترسه
