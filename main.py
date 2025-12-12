@@ -14,9 +14,8 @@ from datetime import datetime
 
 print("""
 ╔═══════════════════════════════════════════════════════════╗
-║           RDP Brute God 2025 – توسط بهترین هکر دنیا        ║
-║       Smart RDP Brute + Auto NLA Bypass (-anla)          ║
-║              98%% CPU Power – Modular & Ultra Fast         ║
+║                    RDP Brute God 2025                     ║
+║       Smart RDP Brute + Auto NLA Bypass (-anla)           ║
 ╚═══════════════════════════════════════════════════════════╝
 """)
 
@@ -90,3 +89,4 @@ async def main():
 signal.signal(signal.SIGINT, lambda s,f: os._exit(0))
 if __name__ == "__main__":
     asyncio.run(main())
+
