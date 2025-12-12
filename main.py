@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+import sys  # <-- اضافه شد (فیکس اصلی!)
 from config import COMMON_PASSWORDS, DEFAULT_USERS
 from utils import load_ips, save_line, periodic_stats
 from brute import brute_rdp
@@ -37,7 +38,7 @@ args = parser.parse_args()
 
 if not args.ips_file:
     parser.print_help()
-    sys.exit(1)
+    sys.exit(1)  # حالا sys import شده – بدون ارور!
 
 # =============== SETTINGS ===============
 USERS = [u.strip() for u in args.users.split(',')]
@@ -90,3 +91,6 @@ async def main():
 signal.signal(signal.SIGINT, lambda s,f: os._exit(0))
 if __name__ == "__main__":
     asyncio.run(main())
+EOF
+
+chmod +x ~/main.py
