@@ -1,6 +1,6 @@
 # utils.py
 import aiofiles
-import asyncio  # <-- اضافه شد
+import asyncio
 from datetime import timedelta
 import psutil
 from config import SAVE_INTERVAL
@@ -20,13 +20,13 @@ async def save_line(file_path, line):
 
 async def periodic_stats(stats, lock, cpu_proc, start_time):
     while True:
-        await asyncio.sleep(SAVE_INTERVAL)  # <-- فیکس شد!
+        await asyncio.sleep(SAVE_INTERVAL)
         async with lock:
             elapsed = time.time() - start_time
             speed = stats["scanned"] / elapsed if elapsed > 0 else 0
             eta = (stats["total"] - stats["scanned"]) / speed if speed > 0 else 999999
             cpu = cpu_proc.cpu_percent()
-            print(f"\r[RDP Brute God] "
+            print(f"\r[RDP Brute God LIVE] "
                   f"Scanned: {stats['scanned']:,}/{stats['total']:,} "
                   f"({stats['scanned']/stats['total']*100:.2f}%) | "
                   f"Success: {stats['success']:,} | "
